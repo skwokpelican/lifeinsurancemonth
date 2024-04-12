@@ -1,6 +1,11 @@
 var chartDataMale=[];
 var chartDataFemale=[];
 var chartData=[];
+//Assume the start Age is 18
+const startAge=18;
+const maxAge=60;
+var maxAgeRow=maxAge-startAge+1; 
+
 
 var planColors = {
     "Bowtie": "#ff0068",
@@ -17,8 +22,8 @@ function drawChart() {
     var selectedPlans = getSelectedPlans();
     var filteredData = filterData(chartData, selectedPlans);
     filteredDataGlobal=filteredData;
-    //find the max value 
-    var maxValue = Math.max(...filteredData[48]);
+    //find the max value, assume it is among the max Age row
+    var maxValue = Math.max(...filteredData[maxAgeRow]);
     //var maxValue = 20000;
     var vAxisMaxValue=(Math.ceil(maxValue/100)+1)*100;
 
@@ -181,7 +186,8 @@ async function fetchAndParseCSV(url) {
 
         const csvText = await response.text();
         const rows = csvText.trim().split('\n');
-        return rows.map(parseCSVRow);
+        const selectedRows=rows.slice(0,maxAgeRow+1);
+        return selectedRows.map(parseCSVRow);
     } catch (error) {
         console.error('Error fetching or parsing CSV:', error);
         return null;
