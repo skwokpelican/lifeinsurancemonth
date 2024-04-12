@@ -3,7 +3,7 @@ var chartDataFemale=[];
 var chartData=[];
 //Assume the start Age is 18
 const startAge=18;
-const maxAge=60;
+const maxAge=50;
 var maxAgeRow=maxAge-startAge+1; 
 
 
